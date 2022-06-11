@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1333.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.rhul.cs2810.users.Waiter">
+   <children>
+      <Label fx:id="statusMessage" layoutX="519.0" layoutY="2.0" prefHeight="25.0" prefWidth="276.0" text="Error:" textFill="WHITE" />
+      <Button fx:id="menuBut" layoutX="267.0" layoutY="9.0" mnemonicParsing="false" onAction="#displayMenuForOrdering" prefHeight="26.0" prefWidth="146.0" styleClass="Button" text="Create New Order" />
+      <TableView fx:id="ordersInProg" layoutX="381.0" layoutY="280.0" prefHeight="200.0" prefWidth="516.0">      
+         <columns>
+            <TableColumn fx:id="inProgOrderID" prefWidth="81.0" text="Order ID" />
+            <TableColumn fx:id="inProgTableNum" prefWidth="120.0" text="Table Number" />
+            <TableColumn fx:id="inProgOrderStat" prefWidth="116.0" text="Order Status" />
+            <TableColumn fx:id="inProgTimePlaced" prefWidth="198.0" text="Time Placed" />
+         </columns></TableView>
+      <TableView fx:id="ordersToBeConf" layoutX="381.0" layoutY="54.0" onMouseClicked="#onUnconfirmedOrderClick" prefHeight="200.0" prefWidth="516.0">
+         <columns>
+            <TableColumn fx:id="confOrderID" prefWidth="86.0" text=" Order ID " />
+            <TableColumn fx:id="confTableNum" prefWidth="114.0" text=" Table Number " />
+            <TableColumn fx:id="confOrderStat" minWidth="0.0" prefWidth="119.0" text=" Order Status " />
+            <TableColumn fx:id="confTimePlaced" minWidth="1.0" prefWidth="199.0" text=" Time Placed " />
+         </columns></TableView>
+      <AnchorPane fx:id="confPane" layoutX="7.0" prefHeight="275.0" prefWidth="96.0" />
+      <Button fx:id="logoutBut" layoutX="832.0" layoutY="9.0" mnemonicParsing="false" onAction="#logout" styleClass="Button" text="Logout" />
+      <Label fx:id="currentUser" layoutX="7.0" layoutY="6.0" styleClass="Labels" text="Current User: " />
+      <TableView fx:id="notificationTable" layoutX="16.0" layoutY="54.0" onMouseClicked="#onNotificationClick" prefHeight="200.0" prefWidth="337.0">
+        <columns>
+          <TableColumn fx:id="notifOrderID" prefWidth="75.0" text="Order ID" />
+          <TableColumn fx:id="notifTableNum" prefWidth="106.0" text="Table Number" />
+            <TableColumn fx:id="notifRequest" prefWidth="155.0" text="Request" />
+        </columns>
+      </TableView>
+      <TableView fx:id="notPaidTable" layoutX="16.0" layoutY="280.0" prefHeight="200.0" prefWidth="337.0">
+        <columns>
+          <TableColumn fx:id="notPaidID" prefWidth="75.0" text="Order ID" />
+          <TableColumn fx:id="notPaidTableNumber" prefWidth="101.0" text="Table Number" />
+            <TableColumn fx:id="notPaidStatus" prefWidth="160.0" text="Status" />
+        </columns>
+      </TableView>
+      <Label fx:id="currentUser1" layoutX="126.0" layoutY="37.0" styleClass="Labels" text="Notifications" />
+      <Label fx:id="currentUser11" layoutX="531.0" layoutY="37.0" styleClass="Labels" text="Order(s) Awaiting Confirmation" />
+      <Label fx:id="currentUser111" layoutX="117.0" layoutY="259.0" styleClass="Labels" text="Orders Not Paid" />
+      <Label fx:id="currentUser1111" layoutX="549.0" layoutY="259.0" styleClass="Labels" text="Order(s) In Progress" />
+   </children>
+   <stylesheets>
+      <URL value="@BaseStyle.css" />
+      <URL value="@TableStyle.css" />
+   </stylesheets>
+</AnchorPane>

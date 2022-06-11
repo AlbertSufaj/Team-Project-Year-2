@@ -1,0 +1,40 @@
+#mainPane{
+  -fx-background-color: #4c6272;
+}
+
+/* */
+
+.button{
+  -fx-background-color: #035A9D;
+  -fx-font-family: monospace;
+  -fx-font-size: 13px;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+}
+
+.button:hover{
+    -fx-box-shadow: inset 300px 0 0 0 #f9e506;
+    -fx-cursor: pointer;
+    -fx-color: black;
+}
+
+.label{
+  -fx-font-family: monospace;
+  -fx-font-size: 15px;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+}
+
+.ErrorLabel{
+  -fx-font-family: monospace;
+  -fx-font-size: 13px;
+  -fx-font-weight: bold;
+  -fx-text-fill: red;
+}
+
+.BigLabel{
+  -fx-font-family: monospace;
+  -fx-font-size: 38px;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1333.0" stylesheets="@BaseStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.rhul.cs2810.users.CustomerPaymentWindow">
+   <children>
+      <Text layoutX="487.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Label" text="Name on Card" />
+      <Text layoutX="480.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Label" text="16-Digit Number" />
+      <Text layoutX="487.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Label" text="Date Of Expiry" />
+      <Text layoutX="514.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Label" text="CVV" />
+      <ComboBox fx:id="monthCB" layoutX="592.0" layoutY="340.0" prefHeight="25.0" prefWidth="69.0" />
+      <ComboBox fx:id="yearCB" layoutX="672.0" layoutY="340.0" prefHeight="25.0" prefWidth="69.0" />
+      <TextField fx:id="nameField" layoutX="592.0" layoutY="271.0" />
+      <TextField fx:id="numberField" layoutX="592.0" layoutY="306.0" />
+      <TextField fx:id="cvvField" layoutX="592.0" layoutY="374.0" prefHeight="25.0" prefWidth="50.0" />
+      <Button fx:id="payBut" layoutX="699.0" layoutY="374.0" mnemonicParsing="false" onAction="#pay" styleClass="Button" text="Pay" />
+      <Label fx:id="errorLab" layoutX="480.0" layoutY="410.0" prefHeight="17.0" prefWidth="261.0" styleClass="ErrorLabel" text="Error:" />
+      <ImageView fitHeight="220.0" fitWidth="455.0" layoutX="439.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@menu_images/biglogo.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

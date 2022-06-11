@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1333.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.rhul.cs2810.users.Kitchen">
+   <children>
+      <ListView fx:id="completeList" layoutX="1124.0" layoutY="284.0" prefHeight="453.0" prefWidth="197.0" styleClass="TableView" />
+      <Button fx:id="dismissButton" layoutX="1013.0" layoutY="68.0" mnemonicParsing="false" onAction="#dismissStatusMessage" prefHeight="26.0" prefWidth="98.0" text="Dismiss" visible="false" />
+      <Button fx:id="markAsCompleteButton" layoutX="1124.0" layoutY="104.0" mnemonicParsing="false" onAction="#markFinished" prefHeight="40.0" prefWidth="197.0" styleClass="Button" text="Mark as complete" />
+      <Text fx:id="statusMessage" layoutX="18.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status messages appear here" visible="false">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font></Text>
+      <ComboBox fx:id="statusOptions" layoutX="1124.0" layoutY="207.0" prefHeight="25.0" prefWidth="159.0" visible="false" />
+      <Button fx:id="changeStatusButton" layoutX="1124.0" layoutY="154.0" mnemonicParsing="false" onAction="#changeStatus" prefHeight="40.0" prefWidth="197.0" styleClass="Button" text="Change status" />
+      <TableView fx:id="orderTable" editable="true" layoutX="14.0" layoutY="104.0" onMouseClicked="#onOrderClicked" prefHeight="632.0" prefWidth="1098.0" styleClass="TableView">
+        <columns>
+          <TableColumn fx:id="orderIdView" editable="false" prefWidth="42.399993896484375" text="ID" />
+          <TableColumn fx:id="statusView" editable="false" prefWidth="95.99993896484375" text="Status" />
+            <TableColumn fx:id="timeView" editable="false" prefWidth="97.60003662109375" text="Time made" />
+            <TableColumn fx:id="itemView" editable="false" prefWidth="860.0" sortable="false" text="Items" />
+        </columns>
+      </TableView>
+      <Button fx:id="confirmChangeButton" layoutX="1287.0" layoutY="206.0" mnemonicParsing="false" onAction="#confirmChangeStatus" styleClass="Button" text="OK" visible="false" />
+      <Label layoutX="1150.0" layoutY="252.0" styleClass="Label" text="Completed Orders" />
+      <ImageView fitHeight="61.0" fitWidth="204.0" layoutX="14.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@menu_images/biglogo.png" />
+         </image>
+      </ImageView>
+   </children>
+   <stylesheets>
+      <URL value="@ListStyle.css" />
+      <URL value="@TableStyle.css" />
+      <URL value="@BaseStyle.css" />
+   </stylesheets>
+</AnchorPane>

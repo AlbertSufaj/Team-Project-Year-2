@@ -1,0 +1,6 @@
+TestURL = "jdbc:postgresql://localhost:5432/test"
+TestUserName = "postgres"
+TestPassword = "password"
+Menu Format = "G"
+TableCount = /12/
+PollingRate(s)= /5/

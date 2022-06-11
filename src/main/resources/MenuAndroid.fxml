@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="480.0" stylesheets="@Menu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.ac.rhul.cs2810.users.Menu">
+   <children>
+      <Accordion layoutX="175.0" layoutY="84.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="473.0" prefWidth="292.0">
+         <panes>
+            <TitledPane animated="false" styleClass="TitledPane" text="Mains">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Accordion layoutX="-1.0" prefHeight="496.0" prefWidth="650.0" styleClass="SideListView">
+                          <panes>
+                            <TitledPane animated="false" text="Salads">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="333.0" prefWidth="440.0" styleClass="SideListView">
+                                       <children>
+                                          <ListView fx:id="salads" onMouseClicked="#onClick" prefHeight="319.0" prefWidth="292.0" styleClass="SideListView" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </TitledPane>
+                            <TitledPane animated="false" text="Tacos">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="SideListView">
+                                       <children>
+                                          <ListView fx:id="tacos" layoutX="7.0" onMouseClicked="#onClick" prefHeight="346.0" prefWidth="285.0" styleClass="SideListView" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </TitledPane>
+                            <TitledPane animated="false" text="Quesadillas">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <ListView fx:id="quesadillas" layoutY="1.0" onMouseClicked="#onClick" prefHeight="339.0" prefWidth="292.0" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </TitledPane>
+                              <TitledPane animated="false" text="Enchiladas">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <ListView fx:id="enchiladas" onMouseClicked="#onClick" prefHeight="283.0" prefWidth="292.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </TitledPane>
+                              <TitledPane animated="false" prefHeight="177.0" prefWidth="650.0" text="Extras">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="333.0" prefWidth="0.0">
+                                       <children>
+                                          <ListView fx:id="extras" onMouseClicked="#onClick" prefHeight="345.0" prefWidth="490.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </TitledPane>
+                              <TitledPane animated="false" prefHeight="216.0" prefWidth="650.0" text="Burritos">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="429.0">
+                                       <children>
+                                          <ListView fx:id="burritos" onMouseClicked="#onClick" prefHeight="164.0" prefWidth="490.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </TitledPane>
+                          </panes>
+                        </Accordion>
+                     </children></AnchorPane>
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" text="Sides">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="SideListView">
+                     <children>
+                        <ListView fx:id="sides" layoutX="8.0" layoutY="10.0" onMouseClicked="#onClick" prefHeight="479.0" prefWidth="285.0" styleClass="SideListView" />
+                     </children></AnchorPane>
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" text="Drinks">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="SideListView">
+                     <children>
+                        <Accordion layoutX="7.0" layoutY="4.0" prefHeight="516.0" prefWidth="641.0" styleClass="SideListView">
+                          <panes>
+                            <TitledPane animated="false" text="Soft Drinks">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="353.0" prefWidth="512.0">
+                                       <children>
+                                          <ListView fx:id="softDrinks" onMouseClicked="#onClick" prefHeight="362.0" prefWidth="284.0" styleClass="SideListView" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </TitledPane>
+                            <TitledPane animated="false" text="Mocktails">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <ListView fx:id="mocktails" onMouseClicked="#onClick" prefHeight="367.0" prefWidth="373.0" styleClass="SideListView" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </TitledPane>
+                            <TitledPane animated="false" text="Beers">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="SideListView">
+                                       <children>
+                                          <ListView fx:id="beers" onMouseClicked="#onClick" prefHeight="364.0" prefWidth="640.0" styleClass="SideListView" />
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </TitledPane>
+                              <TitledPane animated="false" text="Cocktails">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <ListView fx:id="cocktails" onMouseClicked="#onClick" prefHeight="363.0" prefWidth="637.0" styleClass="SideListView" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </TitledPane>
+                              <TitledPane animated="false" text="Tequilas">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="SideListView">
+                                       <children>
+                                          <ListView fx:id="tequilas" onMouseClicked="#onClick" prefHeight="363.0" prefWidth="638.0" styleClass="TitledPane" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </TitledPane>
+                              <TitledPane animated="false" text="Spirits">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="SideListView">
+                                       <children>
+                                          <ListView fx:id="spirits" onMouseClicked="#onClick" prefHeight="368.0" prefWidth="638.0" styleClass="SideListView" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </TitledPane>
+                          </panes>
+                        </Accordion>
+                     </children></AnchorPane>
+               </content>
+            </TitledPane>
+         </panes>
+      </Accordion>
+      <Label layoutX="217.0" layoutY="590.0" prefHeight="17.0" prefWidth="197.0" styleClass="Labels" text="Current Order" />
+      <Label fx:id="total" layoutX="215.0" layoutY="706.0" prefHeight="17.0" prefWidth="108.0" styleClass="Labels" text="Total:" />
+      <Label fx:id="error" layoutX="215.0" layoutY="723.0" styleClass="Labels" text="Click an item to remove it" />
+      <Label layoutX="14.0" layoutY="67.0" styleClass="Labels" text="Filters" />
+      <Accordion layoutY="84.0" prefHeight="473.0" prefWidth="175.0">
+        <panes>
+          <TitledPane animated="false" styleClass="SideListView" stylesheets="@Menu.css" text="Dietary">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="SideListView">
+                     <children>
+                        <CheckBox fx:id="vegetarianCheckBox" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#vegetarianSelected" styleClass="Labels" text="Vegetarian" />
+                        <CheckBox fx:id="veganCheckBox" layoutX="14.0" layoutY="38.0" mnemonicParsing="false" onAction="#veganSelected" styleClass="Labels" text="Vegan" />
+                        <CheckBox fx:id="glutenFreeCheckBox" layoutX="14.0" layoutY="64.0" mnemonicParsing="false" onAction="#glutenFreeSelected" styleClass="Labels" text="Gluten Free" />
+                        <CheckBox fx:id="unavailableCheckBox" layoutX="13.0" layoutY="89.0" mnemonicParsing="false" onAction="#showUnavailable" styleClass="Labels" text="Show Unavailable" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+          <TitledPane animated="false" prefHeight="6.0" prefWidth="163.0" text="Allergens">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="SideListView">
+                     <children>
+                        <ListView fx:id="allergensList" layoutX="1.0" layoutY="27.0" onMouseClicked="#onAllergensListClick" prefHeight="353.0" prefWidth="175.0" styleClass="SideListView" />
+                        <Label fx:id="showAllergensSelected" layoutX="5.0" layoutY="380.0" prefHeight="25.0" prefWidth="149.0" styleClass="Labels" text="None:" wrapText="true" />
+                        <Label layoutX="14.0" layoutY="6.0" prefHeight="16.0" prefWidth="147.0" styleClass="Labels" text="Click an again to remove" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </TitledPane>
+        </panes>
+      </Accordion>
+      <Button fx:id="applyFilters" layoutX="14.0" layoutY="568.0" mnemonicParsing="false" onAction="#getFilteredMenu" prefHeight="78.0" prefWidth="147.0" styleClass="Button" text="Apply Filters" />
+      <ListView fx:id="showOrder" layoutX="215.0" layoutY="609.0" onMouseClicked="#removeItem" prefHeight="96.0" prefWidth="202.0" styleClass="ListView" />
+      <ImageView fitHeight="48.0" fitWidth="187.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logo.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

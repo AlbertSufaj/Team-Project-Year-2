@@ -1,0 +1,71 @@
+!id,name,description,category,calories,vegGluten,allergens,price,stock,costPrice
+0,Nachos,Tortilla chips with cheese & salsa & guac & jalapenos,sides,300,V/GF,corn; onion; milk,490,50,100
+1,Crispy cauliflower bites,Crispy battered cauliflower florets with salsa,sides,248,V,milk; wheat; eggs; garlic; mustard,425,50,200
+2,Grilled broccoli,tossed in lime juice; served with dressing,sides,190,V/VE/GF,mustard; onion; garlic,400,50,150
+3,Patatas bravas,Crispy potato chunks served with salsa,sides,186,V/VE/G,garlic; onion,450,50,200
+4,Frijoles chorizo,Creamy black beans served with chorizo,sides,250,GF,milk; garlic; onion,450,50,200
+5,Feta & Potato taquito,Small corn taco with caramelised onion & a salsa of choice,sides,259,V/GF,egg; milk; garlic; onion; soya; corn,420,50,220
+100,Pork taco,Slow cooked in citrus & spices; with onions,tacos,570,GF,garlic; onion; corn;,570,50,300
+101,Beef taco,Slow cooked with mild spices & black beans,tacos,418,GF,celery; garlic; onion; corn,590,50,340
+102,Grilled chicken & avocado taco,with choice of salsa,tacos,390,GF,garlic; onion; corn;,620,50,300
+103,Steak & cheese taco,Locally sourced beef with grilled cheese & guac & salsa,tacos,587,GF,milk; mustard; garlic; onion; corn,700,50,410
+104,Crispy chicken taco,with dressing/spiced mayo & onions & guac/salsa,tacos,627,GF,egg; milk; garlic; onion; corn,615,50,230
+105,Roasted veg taco,Carrot & caramelised onion; beetroot & dressing/salsa,tacos,360,V/VE/GF,garlic; onion; corn,570,50,300
+106,Mushroom & feta taco,crumbly feta & mushrooms cooked in a rub,tacos,491,V/GF,milk; mustard; garlic; onion; corn,590,50,360
+107,NoChick taco,Vegan chicken alternative with onions & salsa/guac,tacos,411,V/VE/GF,soya; garlic; onion; corn,595,50,300
+200,Chorizo quesadilla,with potato & cheese,quesadillas,424,,wheat; egg; milk; garlic; onion,615,50,380
+201,Grilled chicken quesadilla,with avocado & lettuce & melted cheese & spicy mayo,quesadillas,529,,wheat; egg; milk; garlic; onion,590,50,360
+202,Black bean & cheese quesadilla,with smoky beans & guac,quesadillas,417,V,wheat; milk; garlic; onion,580,50,350
+203,NoChick quesadilla,Chicken alternative with cheese & onions & avocado,quesadillas,443,V,wheat; soya; garlic; onion; milk,590,50,340
+300,Chicken burrito,With beans & rice & salsa,burritos,1095,,wheat; garlic; onion,700,50,420
+301,Pork burrito,Slow cooked pork with onions & salsa & beans & rice,burritos,920,,wheat; garlic; onion,700,50,420
+302,Beef burrito,with salsa & onions & beans & rice,burritos,1014,,wheat; garlic; onion,720,50,430
+303,NoChick burrito,Chicken alternative with beans & rice & salsa,burritos,812,V/VE,soya; wheat; garlic; onion,690,50,360
+400,Grilled chicken enchilada,with melted cheese & rice & beans,enchiladas,573,GF,corn; milk; garlic; onion,900,50,540
+401,Beef enchilada,with melted cheese & rice & beans & mushrooms,enchiladas,353,GF,corn; milk; garlic; onion,920,50,540
+402,Mushroom enchilada,Cooked in a rub; with melted cheese & rice & beans,enchiladas,325,V/GF,corn; milk; garlic; onion; celery,860,50,520
+403,NoChick enchilada,Chicken alternative with melted cheese & rice & beans,enchiladas,416,V/GF,soya; corn; milk; garlic; onion,890,50,520
+500,Grilled chicken salad,Mixed leaves with chicken & beans & salsa,salads,315,GF,mustard; garlic; onion,655,50,400
+501,Beans & mushrooms salad,Black beans with rice & salsa,salads,249,V/VE/GF,garlic; onion,605,50,360
+502,NoChick salad,Chicken alternative with mixed leaves & salsa & beans,salads,304,V/VE/GF,soya; garlic; onion,610,50,360
+503,Avocado & feta salad,Mixed leaves with beans & salsa,salads,390,V/GF,milk; garlic; onion,625,50,370
+600,Lettuce,,extras,4,V/VE/GF,,50,50,10
+601,Cheese,,extras,180,V/GF,milk,75,50,20
+602,Guac,,extras,45,V/VE/GF,,50,50,10
+603,Mushrooms,,extras,15,V/VE/GF,,50,50,15
+604,Cilantro,,extras,2,V/VE/GF,,60,50,17
+605,Salsa Mild,,extras,30,V/VE/GF,garlic; onion,50,50,10
+606,Salsa Hot,,extras,32,V/VE/GF,garlic; onion,50,50,10
+607,Salsa Extreme,,extras,31,V/VE/GF,garlic; onion,50,50,10
+608,Quarter Lime,,extras,5,V/VE/GF,,15,50,5
+1000,Apple juice,,softDrinks,90,V/VE/GF,,200,50,100
+1001,Orange juice,,softDrinks,93,V/VE/GF,,200,50,100
+1002,Berry Banana smoothie,Banana base with blueberries & strawberries,softDrinks,170,V/VE/GF,,350,50,150
+1003,Tropical smoothie,Carrot & pineapple with banana & mango,softDrinks,200,V/VE/GF,,360,50,160
+1004,Water,,softDrinks,0,V/VE/GF,,100,50,50
+1005,Cola,,softDrinks,180,V/VE/GF,,270,50,100
+1006,Diet cola,,softDrinks,2,V/VE/GF,,250,50,120
+1007,Lemonade,,softDrinks,170,V/VE/GF,,250,50,150
+1008,Orangeade,,softDrinks,190,V/VE/GF,,270,50,160
+1100,Mojito,Lime juice with honey; mint & sparkling water,mocktails,50,V/GF,,350,50,200
+1101,Piña colada,Pineapple juice & chunks with coconut milk & sugar,mocktails,250,V/VE/GF,,360,50,200
+1102,Sunrise,Orange juice with lemonade & grenadine,mocktails,150,V/VE/GF,,350,50,200
+1103,Shirley temple,Lemonade with lime juice & grenadine,mocktails,160,V/VE/GF,,350,50,180
+1200,Corona extra,Pilsner-type beer; 4.5%,beers,135,V/VE,barley,410,50,220
+1201,Modelo especial,Pale lager; 4.5%,beers,142,V/VE/GF,,410,50,210
+1202,Estrella,Pale lager; 5.4%,beers,130,V/VE/GF,,40,50,10
+1203,Tecate,Pale ale that blends malt & hops; 4.6%,beers,141,V/VE,malt,420,50,240
+1300,Margarita,Tequila & triple sec with agave syrup & lime juice,cocktails,200,V/VE/GF,,700,50,420
+1301,Piña colada,Rum & pineapple juice with coconut cream,cocktails,310,V/VE/GF,,730,50,440
+1302,Mojito,Rum & sparkling water with lime juice & mint,cocktails,160,V/VE/GF,,700,50,430
+1303,Gin & Tonic,,cocktails,150,V/VE/GF,,700,50,420
+1304,Strawberry Daiquiri,Rum with strawberries & lime juice & lemonade,cocktails,100,V/VE/GF,,700,50,430
+1400,Calle23 Blanco,40%,tequilas,90,V/VE/GF,,450,50,220
+1401,Sierra,38%,tequilas,93,V/VE/GF,,430,50,200
+1402,Ocho,40%,tequilas,97,V/VE/GF,,420,50,230
+1403,Gran centenario,40%,tequilas,95,V/VE/GF,,450,50,210
+1500,Vodka,40%,spirits,97,V/VE/GF,,40,50,20
+1501,Gin,43%,spirits,110,V/VE/GF,,415,50,200
+1502,White rum,38%,spirits,97,V/VE/GF,,410,50,200
+1503,Spiced rum,37.50%,spirits,97,V/VE/GF,,410,50,200
+1504,Whiskey,40%,spirits,105,V/VE/GF,,450,50,200

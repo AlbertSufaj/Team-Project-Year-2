@@ -1,0 +1,29 @@
+.table-view {
+  -fx-background-color: #035A9D;
+  -fx-table-cell-border-color: black;
+}
+
+.table-view .column-header-background .label {
+  -fx-background-color: #F0F0F0;
+  -fx-font-size: 12px;
+  -fx-table-cell-border-color: black;
+  -fx-text-fill: black;
+}
+
+.table-view .table-cell{
+  -fx-text-fill: white;
+  -fx-font-size: 11px;
+  -fx-font-family: monospace;
+}
+
+.table-row-cell: odd {
+  -fx-background-color: #035A9D;
+  -fx-background-insets: 0, 0 0 1 0;
+  -fx-padding: 0.0em;
+}
+
+.table-row-cell: even {
+  -fx-background-color: #024173;
+  -fx-background-insets: 0, 0 0 1 0;
+  -fx-padding: 0.0em;
+}
