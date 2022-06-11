@@ -1,0 +1,2 @@
+1, Food1, Desc1, 0, 199, burritos, false, false, false, 1, 100
+2, Food?, Totally Edible, 1, 200, burritos, true, false, false, 1, 120
