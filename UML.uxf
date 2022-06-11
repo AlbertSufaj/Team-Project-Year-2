@@ -1,0 +1,2229 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1450</x>
+      <y>2795</y>
+      <w>175</w>
+      <h>380</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;abstract&gt;&gt;
+Database
+--
+# dataPath: String
+# URL: String
+# userName: String
+# password: String
+# format: String
+# tableCount: int
+# layouts: Map&lt;String, char[]&gt;
+# insertStatements: Map&lt;String, String&gt;
+# tables: String[]
+# pollingRate: int
+--
+Constructors
+~Database(tables: String[], testing: bool)
+                  {ConnectionError, ExcecutionError}
+--
+Responsibilities
+~ doTablesExist(st: Statement, tables: String[]):bool
+~ getConfigInfo(configFile: String): String[] 
+                         {ConnectionError}
+# getStatement(URL: String, username: String, 
+      password:String): Statement
+                         {ConnectionError}
+# getConnection(URL: String, username: String, 
+      password:String): Connection
+                         {ConnectionError}
+# closeConnection(connection: Connection)
++ getPollingRate():int
+~ doTablesExist(st: Statement):boolean
+# getStatement():Statement {ConnectionError} 
+# getConnection():Connection {ConnectionError} 
+# &lt;&lt;abstract&gt;&gt; makeTables()
+# inputIntoTable(table: String, inputs String[],
+    connection:Connection): PreparedStatement 
+                          {ExecutionError, SQLException}
+# inputIntoTable(table: String, inputs String[],
+    ps: PreparedStatement) 
+                          {ExecutionError, SQLException}
+# executeInsert(ps: PreparedStatements) 
+                         {ExecutionError}
+# inputValuesIntoPreparedStatement(inputs: String[],
+       layout: char[], ps: PreparedStatement) 
+                         {ExecutionError}
+# loadFile(fileName: String):BufferedReader 
+                         {FileNotFoundException}
+# getFileAsStream(fileName: String):InputStream
+                         {FileNotFoundException}
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1305</x>
+      <y>2265</y>
+      <w>205</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>TableDB
+--
+- maxTableCount: int
+- loginDB: LoginDB
+--
+Constructors
+~ TableDB(testing: bool)
+--
++ getWaiter(tableID: int): int 
+                  {ConnetionError, ExecutionError}
+- setWaiter(tableID: int, waiterID: int)
+                 {ConnectionError, ExecutionError}
++ getClean(tableID: int): bool
+                 {ConnectionError, ExecutionError}
++ setClean(tableID: int, isClean: int)
+                 {ConnectionError, ExecutionError}
++ getSeated(tableID: int): bool
+                 {ConnectionError, ExecutionError}
++ setSeated(tableID: int, isSeated: bool)
+                 {ConnectionError, ExecutionError}
++ getWaiterAlerted(tableID: int): bool
+                 {ConnectionError, ExecutionError}
++ setWaiterAlerted(tableID: int, isAlerted: bool)
+                 {ConnectionError, ExecutionError}
++ getAssignedTables(waiterID: int): List&lt;int&gt;
+                 {ConnectionError, ExecutionError}
++ getNeededTables(waiterID: int): List&lt;int&gt;
+                 {ConnectionError, ExecutionError}
++ getMaxTableNum(): int
+                 {ConnectionError, ExecutionError}
++ assignTable(tableID: int)
+                 {ConnectionError, ExecutionError}
++ reassignTablesFromWaiter(waiterID: int)
+                 {ConnectionError, ExecutionError}
++ assignUnassignedTables()
+- populateTables()
+                 {ConnectionError, ExecutionError}
+- setColumn(tableID: int, value: bool, columnName: String)
+                 {ConnectionError, ExecutionError}
+- getColumn(tableID: int, columnName: int): bool
+                 {ConnectionError, ExecutionError}
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>755</x>
+      <y>2175</y>
+      <w>200</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>WaiterDB
+--
+Constructors
+~ WaiterDB(testing: bool)
+--
++ getWaiterFromID(id: int): Employee
+                 {ConnectionError, ExecutionError}
++ addHalfHoursWorked(id: int, halfHoursWorked: int)
+                 {ConnectionError, ExecutionError}
++ getHalfHoursWorked(id: int): int
+                 {ConnectionError, ExecutionError}
++ addOrderConfirmTime(id: int, minutesPassed: int)
+                 {ConnectionError, ExecutionError}
++ getAverageConfirmTime(id: int): float
+                 {ConnectionError, ExecutionError}
++ addOrderServeTime(id: int, minutesTaken: int)
+                 {ConnectionError, ExecutionError}
++ getAverageServeTime(id: int): float
+                 {ConnectionError, ExecutionError}
+- populateTables()
+                 {ConnectionError, ExecutionError}
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1565</x>
+      <y>2245</y>
+      <w>240</w>
+      <h>365</h>
+    </coordinates>
+    <panel_attributes>OrderDB
+--
+- testing: bool
+- orderCache: Map&lt;OrderState, List&lt;Order&gt;'&gt;
+- timeFetched: Map&lt;OrderState, LocalTime&gt;
+--
+Constructors
+~ OrderDB(testing: bool)
+--
++ addOrder(order:Order)
+          {ConnectionError, ExecutionError, MissingDataError, 
+            OrderAlreadyExistsException}
++ modifyOrder(order: Order)
+          {ConnectionError, ExecutionError, OrderNotFoundException}
++ getOrders(): List&lt;Order&gt;
+          {ConnectionError, ExecutionError}
++ getOrderState(order: Order): OrderState
+          {ConnectionError, ExecutionError, OrderNotFoundException}
++ confirmOrder(order: Order)
+          {ConnectionError, ExecutionError, OrderNotFoundException}
++ removeOrder(order: Order)
+          {ConnectionError, ExecutionError}
++ clearOrders()
+          {ConnectionError, ExecutionError}
++ setOrderState(order: Order, orderState: OrderState): int
+          {ConnectionError, ExecutionError, OrderNotFoundException}
++ getOrderAssignedToWaiter(waiterID: int): List&lt;Order&gt;
+          {ConnectionError, ExecutionError}
++ getOrderFromID(id: int): Order
+          {ConnectionError, ExecutionError}
++ getOrdersFromTable(tableID: int): List&lt;Order&gt;
+          {ConnectionError, ExecutionError}
++ getPayed(order: Order): bool
+          {ConnectionError, ExecutionError, OrderNotFoundException}
++ setOrderPayed(order: Order)
+          {ConnectionError, ExecutionError, OrderNotFoundException}
++ getOrdersAssignedToWaiterFromState(state: OrderState,
+                                                                   waiterID: int):List&lt;Order&gt;
+          {ConnectionError, ExecutionError}
+- getOrdersFromState(state: OrderState): List&lt;Order&gt;
+          {ConnectionError, ExecutionError}
+- getOrdersUsingQuery(query: String, inputs: String[],
+                                       format: char[]): List&lt;Order&gt;
+          {ConnectionError, ExecutionError}
+- getOrdersFromResultSet(orderResult: ResultSet): List&lt;Order&gt;
+          {ConnectionError, ExecutionError}
+- getCodeFromState(state: OrderState)
+
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1865</x>
+      <y>2235</y>
+      <w>240</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>MenuDB
+--
+- ignoreStock: bool
+- filterToItems: Map&lt;Filter, List&lt;Item&gt;&gt;
+- lastUpdated: Map&lt;Filter, LocalTime&gt;
+--
+Constructors
+~ MenuDB(testing: bool)
+--
++ getMenu(): List&lt;Item&gt;
+          {ConnectionError, ExecutionError}
++ getMap(): Map&lt;int, Item&gt;
+          {ConnectionError, ExecutionError}
++ getFilteredMenu(filter: Filter): List&lt;Item&gt;
+          {ConnectionError, ExecutionError}
++ getAllergens: List&lt;String&gt;
+          {ConnectionError, ExecutionError}
++ setIgnoreOutOfStock(ignoreStock: bool)
++ decreaseStock(order: Order)
+          {ConnectionError, ExecutionError}
++ addItem(item: Item)
+          {ConnectionError, ExecutionError, InvalidItemException}
++ removeItem(itemID: int)
+          {ConnectionError, ExecutionError}
++ modifyItem(item: Item)
+          {ConnectionError, ExecutionError, InvalidItemException}
++ getAverageTimeToCook(itemID: int): float
+          {ConnectionError, ExecutionError}
++ addOrderToData(order: Order, time: int)
+          {ConnectionError, ExecutionError}
+- populateTable(table: String)
+          {ConnectionError, ExecutionError}
+- populateTables(fileName: String)
+          {ConnectionError, ExecutionError}
+- getItemsFromResultSet(rs: ResultSet): List&lt;Item&gt;
+          {ConnectionError, ExecutionError}
+- addAllergensToItem(st: Statement, item: Item)
+          {ExecutionError}
+- dealWithItemError(EE: ExecutionError, data String[])
+          {ConnectionError, ExecutionError, InvalidItemException}
+
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1010</x>
+      <y>2265</y>
+      <w>240</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>LoginDB
+--
+- tableDB: TableDB
+--
+Constructors
+~ LoginDB(testing: bool)
+--
+_+ hash(i: int): String_
++ getID(hash: String): int
+          {ConnectionError, ExecutionError}
++ getName(id: int): String
+          {ConnectionError, ExecutionError}
++ getLoggedInWaiters(): List&lt;Integer&gt;
+          {ConnectionError, ExecutionError}
++ logOut(id: int): int
+          {ConnectionError, ExecutionError}
++ getAllWaiters(): List&lt;Integer&gt;
+          {ConnectionError, ExecutionError}
+- populateTables()
+          {ConnectionError, ExecutionError}
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2150</x>
+      <y>2195</y>
+      <w>240</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>ImageDB
+--
+- imageCache: Map&lt;Integer, Image&gt;
+- imageNotFoundImage: Image
+--
+Constructors
+~ ImageDB(testing: bool)
+--
++ getImage(itemID: int): Image
+          {ConnectionError, ExecutionError}
+- populateTable()
+          {ConnectionError, ExecutionError}
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1835</x>
+      <y>2035</y>
+      <w>250</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Filter
+--
+- isVegi: bool
+- isVegan: bool
+- isGlutenFree: bool
+- allergens: Set&lt;String&gt;
+--
+Constructors
++ Filter(allergens: Set&lt;String&gt;, isVegi: bool, isVegan: bool, isGlutenFree: bool)
+--
++ isVegi(): bool
++ isVegan(): bool
++ isGlutenFree(): bool
++ getAllergens(): Set&lt;String&gt;
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1425</x>
+      <y>1940</y>
+      <w>390</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>DatabaseFactory
+--
+_- menuDB: MenuDB_
+_- orderDB: OrderDB_
+_- loginDB: LoginDB_
+_- tableDB: TableDB_
+_- imageDB: ImageDB_
+_- waiterDB: WaiterDB_
+
+_- testMenu: MenuDB_
+_- testOrder: OrderDB_
+_- testLoginDB: LoginDB_
+_- testTable: TableDB_
+_- testImageDB: ImageDB_
+_- testWaiterDB: WaiterDB_
+
+_- errorCount: int_
+--
+_+ getMenuDB(): MenuDB {ConnectionError, ExecutionError}_
+_+ getOrderDB(): OrderDB {ConnectionError, ExecutionError}_
+_+ getLoginDB(): LoginDB {ConnectionError, ExecutionError}_
+_+ getTableDB(): TableDB {ConnectionError, ExecutionError}_
+_+ getImageDB(): ImageDB {ConnectionError, ExecutionError}_
+_+ getWaiterDB(): WaiterDB {ConnectionError, ExecutionError}_
+
+
+_~ getTestMenu(): MenuDB {ConnectionError, ExecutionError}_
+_~ getTestOrderDB(): OrderDB {ConnectionError, ExecutionError}_
+_~ getTestLoginDB(): LoginDB {ConnectionError, ExecutionError}_
+_~ getTestTableDB(): TableDB {ConnectionError, ExecutionError}_
+_~ getTestImageDB(): ImageDB {ConnectionError, ExecutionError}_
+_~ getTestWaiterDB(): WaiterDB {ConnectionError, ExecutionError}_
+_~reset()_
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>825</x>
+      <y>2340</y>
+      <w>635</w>
+      <h>465</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+&lt;&lt;implements&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>1250.0;910.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1535</x>
+      <y>2605</y>
+      <w>160</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+&lt;&lt;implements&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>10.0;380.0;300.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1620</x>
+      <y>2280</y>
+      <w>650</w>
+      <h>540</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+&lt;&lt;implements&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>10.0;1060.0;1020.0;550.0;1280.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1400</x>
+      <y>2580</y>
+      <w>110</w>
+      <h>225</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+&lt;&lt;implements&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>200.0;430.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1580</x>
+      <y>2540</y>
+      <w>395</w>
+      <h>265</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+&lt;&lt;implements&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>10.0;510.0;770.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1120</x>
+      <y>2410</y>
+      <w>375</w>
+      <h>395</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+&lt;&lt;implements&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>730.0;770.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1950</x>
+      <y>2135</y>
+      <w>65</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;uses&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1245</x>
+      <y>2270</y>
+      <w>70</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;references&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1805</x>
+      <y>2195</y>
+      <w>100</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;creates&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>180.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1455</x>
+      <y>2195</y>
+      <w>65</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;creates&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>10.0;140.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1160</x>
+      <y>2175</y>
+      <w>275</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;creates&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>10.0;180.0;530.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1810</x>
+      <y>2160</y>
+      <w>475</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;creates&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>930.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1630</x>
+      <y>2195</y>
+      <w>45</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;creates&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>950</x>
+      <y>2140</y>
+      <w>485</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;creates&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>10.0;100.0;950.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>250</x>
+      <y>1055</y>
+      <w>240</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>CustomerOrderTracker &lt;&lt;Application&gt;&gt;
+--
+FXML attributes
+- tableNumberCheckout: Label
+- orderNumber: Label
+- orderStatus: Label
+- error: Label
+- callWaiter: Button
+- exit: Button
+--
+- tableSelector: TableSelector
+- menu: Menu
+- orderDB: OrderDB
+- tableDB: TableDB
+- pollingRate: int
+- orderNum: int
+--
+Constructors
++ CustomerOrderTracker()
+--
+FXML Responsiblities
++ exit()
++ callWaiter()
+~ initialize()
+--
+Responsiblities
+- updateOrderStatus()
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>830</x>
+      <y>1070</y>
+      <w>240</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>Customer &lt;&lt;Application&gt;&gt;
+--
+FXML attributes
+- menuPane: AnchorPane
+- mainPane: AnchorPane
+- changeTable: Button
+- callWaiter: Button
+- checkout: Button
+- showTable: Label
+- error: Label
+--
+- tableSelector: TableSelector
+- menu: Menu
+- orderDB: OrderDB
+- tableDB: TableDB
+- menuDB: MenuDB
+_- order: Order_
+_- orderFromCust: bool_
+- pollingDelay: int
+--
+Constructors
++ Customer()
+--
+FXML Responsiblities
++ callWaiter()
++ changeTable()
++ placeOrder()
+~ initialize()
+--
+Responsiblities
++ dismissCall()
++ getOrder(): Order
++ isOrderFromCust(): bool
+- openWindow(window: String)
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>510</x>
+      <y>565</y>
+      <w>240</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>CustomerPaymentWindow &lt;&lt;Application&gt;&gt;
+--
+FXML attributes
+- mainPane: AnchorPane
+- nameField: TextField
+- numberField: TextField
+- monthCB: ComboBox
+- yearCB: ComboBox
+- cvvField: TextField
+- paybut: Button
+- errorLab: Label
+--
+- orderDB: OrderDB
+_- cust: Customer_
+- tabSel: TableSelector
+- error: bool
+- yearSelected: int
+- year: int
+--
+Constructors
+--
+FXML Responsiblities
++ pay()
+~ initialize()
+--
+Responsiblities
+- checkName()
+- checkNumber()
+- checkYear()
+- checkMonth()
+- checkCvv()
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1190</x>
+      <y>830</y>
+      <w>240</w>
+      <h>250</h>
+    </coordinates>
+    <panel_attributes>JointStartMenu &lt;&lt;Application&gt;&gt;
+--
+FXML attributes
+- mainPane: AnchorPane
+- customerButton: Button
+- staffButton: Button
+- error: Label
+--
+- login: Login
+--
+Constructors
++ JointStartMenu()
++ JointStartMenu(b: bool)
+--
+FXML Responsiblities
++ customerClick()
++ staffClick()
+~ initialize()
+--
+Responsiblities
+- openWindow(String window)
+- cacheImages()
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1870</x>
+      <y>440</y>
+      <w>240</w>
+      <h>315</h>
+    </coordinates>
+    <panel_attributes>Kitchen &lt;&lt;Application&gt;&gt;
+--
+FXML attributes
+- completeList: ListView&lt;String&gt;
+- dismissButton: Button
+- markAsCompleteButton: Button
+- changeStatusButton: Button
+- confirmChangeButton: Button
+- statusMessage: Text
+- statusOptions: ComboBox&lt;String&gt;
+- orderTable: TableView&lt;KitchenOrderTableData&gt;
+- orderIdView: TableColumn&lt;KitchenOrderTableData, String&gt;
+- statusView: TableColumn&lt;KitchenOrderTableData, String&gt;
+- timeView: TableColumn&lt;KitchenOrderTableData, String&gt;
+- itemView: TableColumn&lt;KitchenOrderTableData, String&gt;
+--
+- login: Login
+- odb: OrderDB
+- mdb: MenuDB
+- pollingRate: int
+- ordersConfirmedData: ObservableList&lt;KitchenOrderTableData&gt;
+- ordersPrepairingData: ObservableList&lt;KitchenOrderTableData&gt;
+- ordersConfirmed: List&lt;Order&gt;
+- ordersPreparing: List&lt;Order&gt;
+- selectedOrder: KitchenOrderTableData
+--
+Constructors
++ JointStartMenu()
+--
+FXML Responsiblities
++ markFinished()
++  dismissStatusMessage()
+~ initialize()
+--
+Responsiblities
+- pushStatusMessage(error: bool, message: String)
++ changeStatus()
++ onOrderClicked()
++ confirmChangeStatus()
++ displayOrders(data: ObservableList&lt;KitchenOrderTableData&gt;, 
+                           orders: List&lt;Order&gt;)
+-  updateOrdersFromDB()
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2160</x>
+      <y>710</y>
+      <w>240</w>
+      <h>225</h>
+    </coordinates>
+    <panel_attributes>Login &lt;&lt;Application&gt;&gt;
+--
+FXML attributes
+- mainPane: AnchorPane
+- enterPin: Button
+- pinField: PasswordField
+- errorPinLogin: Label
+--
+- loginDB: LoginDB
+_- pin: String_
+_- userName: String_
+_- id: int_
+_- intOpt: char_
+--
+Constructors
++ Login()
+--
+FXML Responsiblities
++ loginWithPin()
+~ initialize()
+--
+Responsiblities
+- displayError(message: String)
++ setPin()
++ getUser(): String
++ getUserType(): char
++ setUserType(char opt)
++ getID(): int
++ openWindow(window: String)
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2120</x>
+      <y>1555</y>
+      <w>240</w>
+      <h>355</h>
+    </coordinates>
+    <panel_attributes>Management &lt;&lt;Application&gt;&gt;
+--
+FXML attributes
+- mainPane: AnchorPane
+- waiterInfoPane: AnchorPane
+- addItem: Button
+- removeItem: Button
+- modifyItem: Button
+- error: Label
+- stockTable: TableView
+- stockID: TableColumn
+- stockName: TableColumn
+- stockPrice: TableColumn
+- stockLevel: TableColumn
+- stockAvgTime: TableColumn
+- employeeID: TableView
+- employeeName: TableColumn
+- employeeDoB: TableColumn
+- employeeDoH: TableColumn
+- employeeNumOfOrder: TableColumn
+- employeeHoursWorked: TableColumn
+--
+- waiter: Waiter
+- login: Login
+- menuDB: menuDB
+- waiterDB: WaiterDB
+- loginDB: LoginDB
+- pollingRate: int
+- stockLevelData: ObservableList&lt;StockTableData&gt;
+- employeeData: ObservableList&lt;EmployeeTableData&gt;
+_- optChosen: char_
+--
+Constructors
++ Management()
+--
+FXML Responsiblities
++ addItem()
++ removeItem()
++ modifyItem()
+~ initialize()
+--
+Responsiblities
++ getOptChosen(): char
++ populateStockTable()
++ populateEmployeeTable()
++ callPopulate()
++ openWindow(window: String)
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1595</x>
+      <y>1405</y>
+      <w>240</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>ManagerModifyItem &lt;&lt;Application&gt;&gt;
+--
+FXML attributes
+- mainPane: AnchorPane
+- nameField: TextField
+- descriptionField: TextArea
+- priceField: TextField
+- costPriceField: TextField
+- caloriesField: TextField
+- allergensField: TextArea
+- stockLevel: TextField
+- categoryOptions: ComboBox
+- vegetarianCB: CheckBox
+- veganCB: CheckBox
+- glutenFreeCB: CheckBox
+- addItem: Button
+- removeItem: Button
+- updateItem: Button
+- exit: Button
+- errorMsg: Label
+--
+- menuDB: MenuDB
+- management: Management
+- menu: Menu
+- error: bool
+- itemID: int
+--
+Constructors
+--
+FXML Responsiblities
++ addItem()
++ removeItem()
++ updateItem()
++ exit()
+~ initialize()
+--
+Responsiblities
+- getItemToAdd(): Item
+- getName(): String
+- getDescription: String
+- getPrice(text: TextField): int
+- getPricePenceStr(tf: TextField): String
+- numCheck(field: TextField, str: String): int
+- getAllergensFromWindow(item: Item)
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1265</x>
+      <y>1220</y>
+      <w>240</w>
+      <h>505</h>
+    </coordinates>
+    <panel_attributes>Menu &lt;&lt;Application&gt;&gt;
+--
+FXML attributes
+- salads: ListView
+- tacos: ListView
+- quesadillas: ListView
+- burritos: ListView
+- enchiladas: ListView
+- extras: ListView
+- sides: ListView
+- softDrinks: ListView
+- mocktails: ListView
+- beers: ListView
+- cocktails: ListView
+- tequilas: ListView
+- spirits: ListView
+- showOrder: ListView
+- total: Label
+- error: Label
+--
+_- newOrder: Order_
+- tableSelector: TableSelector
+_- menuDB: MenuDB_
+- imageDB: ImageDB
+- login: Login
+_- itemSelected: Item_
+_- wOrdOpt WaiterOrderOptions_
+~ menu: List&lt;Item&gt;
+- listToItemsPicked: Map&lt;ListView, List&lt;Item&gt;'&gt;
+- categoryToViewMap: Map&lt;ItemCategory. ListView&gt;
+- vegetarian: bool
+- vegan: bool
+- glutenFree: bool
+- allergens: List&lt;String&gt;
+- allergensSelected: Set&lt;String&gt;
+- runningTotal: Price
+- ignoreStock: bool
+- indiciesList: List&lt;int&gt;
+--
+Constructors
++ Menu()
+--
+FXML Responsiblities
++ removeItem()
++ showUnavailable()
+~ onAllergensListClick()
+~ vegetarianSelected()
+~ veganSelected()
+~ glutenFreeSelected()
++ getFilteredMenu()
+- onClick()
+~ initialize()
+--
+Responsiblities
+- showOrderStored()
++ getOrder(): Order
++ resertOrder()
++ displayOrder(itemToAdd: Item)
++ showTotal()
++ getOrderNumber(): int
++ getAllergensFromDatabase()
++ clearMenu()
++ showFilteredMenu()
++ getItem(): Item
+- getMenu()
+- populateMenu()
+
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>950</x>
+      <y>2195</y>
+      <w>85</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;references&gt;&gt;
+bg=red
+fg=red</panel_attributes>
+    <additional_attributes>120.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2100</x>
+      <y>2240</y>
+      <w>60</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;references&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>10.0;20.0;100.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1800</x>
+      <y>2260</y>
+      <w>75</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;references&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>130.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1505</x>
+      <y>2270</y>
+      <w>70</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;references&gt;&gt;
+fg=Red</panel_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>830</x>
+      <y>680</y>
+      <w>240</w>
+      <h>315</h>
+    </coordinates>
+    <panel_attributes>TableSelector &lt;&lt;Application&gt;&gt;
+--
+FXML attributes
+- setTable: Button
+- mainPane: AnchorPane
+- tableNumber: TextField
+- errorLabel: Label
+- pay: Button
+- payAll: Button
+- ordersToBePaidTable: TableView
+- payOrderID: TableColumn
+- payTableNumber: TableColumn
+- payPrice: TableColumn
+--
+- login: Login
+- tableDB: TableDB
+- orderDB: OrderDB
+_- tableNum: String_
+_- maxTable: int_
+- jumpToPay: bool
+- multipleOrders: bool
+_- order: Order_
+_- ordersList: List&lt;Order&gt;_
+--
+Constructors
++ TableSelector()
+--
+FXML Responsiblities
++ confirmNumber()
++ goToPay()
++ paySelectedOrder()
++ payAll()
+~ initialize()
+--
+Responsiblities
+- openWindow(window: String)
++ setTableNum(tabNum: String)
++ getTableNum(): String
++ isMultipleOrders(): bool
++ getOrder: Order
++ getOrderList(): List&lt;Order&gt;
+- showPayInfo()
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2335</x>
+      <y>975</y>
+      <w>240</w>
+      <h>550</h>
+    </coordinates>
+    <panel_attributes>Waiter &lt;&lt;Application&gt;&gt;
+--
+FXML attributes
+- mainPane: AnchorPane
+- confPane: AnchorPane
+- statusMessage: Label
+- currentUser: Label
+- menuBut: Button
+- logoutBut: Button
+- ordersToBeConf: TableView
+- confOrderID: TableColumn
+- confTableNum: TableColumn
+- confOrderStat: TableColumn
+- confTimePlaced: TableColumn
+- ordersInProg: TableView
+- inProgOrderID: TableColumn
+- inProgTableNum: TableColumn
+- inProgOrderStat: TableColumn
+- inProgTimePlaces: TableColumn
+- notificationTable: TableView
+- notifOrderID: TableColumn
+- notifTableNum: TableColumn
+- notifRequest: TableColumn
+- notPaidTable: TableView
+- notPaidID: TableView
+- notPaidTableNumber: TableColumn
+- notPaidStatus: TableColumn
+--
+- pollingRate: int
+- login: Login
+- orderDB: OrderDB
+- loginDB: LoginDB
+- tableDB: TableDB
+- ordersToBeConfData: ObservableList&lt;OrderTableData&gt;
+_- clickedOrderID: int_
+_-clickedTableNumber: int_
+- ordersInProgData: ObservableList&lt;OrderTableData&gt;
+- notificationData: ObservableList&lt;NotificationTableData&gt;
+- notPaidData: ObservableList&lt;NotificationTableData&gt;
+_- buttonDisable: int_
+_- isWaiter: bool_
+--
+Constructors
++ Waiter()
+~ Waiter(first: bool, testing: bool)
+--
+FXML Responsiblities
++ displayMenuForOrdering()
++ onUnconfirmedOrderClick()
++ onNotificationClick()
++ logout()
+~ initialize()
+--
+Responsiblities
++ notifyWaiterFoodReady()
+- displayWaiterFoodReady( notifOrders: List&lt;Order&gt;)
++ notifyWaiterCustomerRequest()
+- populateWaiterCustomerRequest(tableRequest: List&lt;int&gt;)
++ notifyWaiterUnpaidOrders()
+- displayUnpaidOrders(notPaid: List&lt;Order&gt;)
++ getClickedOrderID: int
++ getClickedTableNum(): int
++ clickOrdersTables(table: TableView,
+                                 data: ObservableList&lt;OrderTableData&gt;)
+- populateOrdersTable(table: TableView, ordersToBeAdded: List&lt;Order&gt;,
+                                     data: ObservableList&lt;OrderTableData&gt;)
++ displayOrdersToBeConfirmed()
++ displayOrdersInProgress()
++ getButtonDisable(): int                                     
+- openWindow(window: String)
++ hideButtonsForManagement()
+
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1590</x>
+      <y>1115</y>
+      <w>240</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>WaiterMenu &lt;&lt;Application&gt;&gt;
+--
+FXML attributes
+- mainPane: AnchorPane
+- menuPane: AnchorPane
+- exit: Button
+- checkout: Button
+- changeTable: Button
+- tableNumber: TextField
+- error: Label
+--
+- menu: Menu
+- orderDB: OrderDB
+- menuDB: MenuDB
+- tableSelector: TableSelector
+--
+Constructors
+--
+FXML Responsiblities
++ exit()
++ checkout()
++ changeTable()
+~ initialize()
+--
+Responsiblities
+
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1925</x>
+      <y>1060</y>
+      <w>240</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>WaiterOrderOptions &lt;&lt;Application&gt;&gt;
+--
+FXML attributes
+- mainPane: AnchorPane
+- orderID: Label
+- tableNum: Label
+- error: Label
+- cancelOrder: Button
+- exit: Button
+- confirmed: Button
+- served: Button
+- resetRequest: Button
+- addToOrder: Button
+--
+- waiter: Waiter
+- orderDB: OrderDB
+- tableDB: TableDB
+- tb: TableSelector
+_- isModifyOrder: bool_
+--
+Constructors
++ WaiterOrderOptions()
+--
+FXML Responsiblities
++ exit()
++ setCancelled()
++ setConfirmed()
++ setServed()
++ resetRequest()
++ addToOrder()
+~ initialize()
+--
+Responsiblities
+
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>460</x>
+      <y>1300</y>
+      <w>815</w>
+      <h>145</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;loads data&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>1610.0;270.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1065</x>
+      <y>1260</y>
+      <w>210</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;Shows&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>400.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1500</x>
+      <y>1210</y>
+      <w>100</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;Shows&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>10.0;140.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1500</x>
+      <y>1460</y>
+      <w>105</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;Shows&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>10.0;20.0;190.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1830</x>
+      <y>1465</y>
+      <w>300</w>
+      <h>185</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;Loads&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>10.0;10.0;580.0;350.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>660</x>
+      <y>810</y>
+      <w>180</w>
+      <h>410</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;loads data&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>340.0;800.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1825</x>
+      <y>1165</y>
+      <w>110</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;Loads&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>10.0;20.0;200.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1830</x>
+      <y>1505</y>
+      <w>300</w>
+      <h>185</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;loads&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>580.0;350.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2355</x>
+      <y>1520</y>
+      <w>60</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;shows&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2160</x>
+      <y>1065</y>
+      <w>185</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;Loads&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>350.0;10.0;10.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2160</x>
+      <y>1110</y>
+      <w>185</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;Loads&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>10.0;180.0;350.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2310</x>
+      <y>930</y>
+      <w>60</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;Loads&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>90.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2105</x>
+      <y>650</y>
+      <w>85</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;Loads&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>10.0;10.0;150.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2175</x>
+      <y>930</y>
+      <w>45</w>
+      <h>635</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;loads&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>10.0;1250.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>990</y>
+      <w>40</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;Loads&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>10.0;160.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1065</x>
+      <y>840</y>
+      <w>135</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;Loads&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>10.0;20.0;250.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1425</x>
+      <y>820</y>
+      <w>745</w>
+      <h>125</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;Loads&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>1470.0;10.0;10.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2350</x>
+      <y>930</y>
+      <w>75</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;loads data&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>380</x>
+      <y>805</y>
+      <w>140</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;Loads&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>10.0;500.0;260.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1370</x>
+      <y>1715</y>
+      <w>135</w>
+      <h>235</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;uses&gt;&gt;</panel_attributes>
+    <additional_attributes>250.0;450.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1790</x>
+      <y>1500</y>
+      <w>555</w>
+      <h>450</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;uses&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;880.0;520.0;50.0;1090.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2480</x>
+      <y>1820</y>
+      <w>240</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>Employee
+--
+Attributes
+- id: int
+- name: String
+- dateOfBirth: LocalDate
+- dateOfHire: LocalDate
+- numOrders: int
+- timeOrdersLastUpdated: LocalTime
+- halfHoursWorked: int
+- orderDB: OrderDB
+--
+Constructors
++ Employee (id: int, name: String, dateOfBirth: LocalDate,
+                     dateOfHire: LocalDate, numOrders: int. halfHoursWorked: int)
+--
+Responsiblities
++ getID(): int
++ getName(): String
++ getDateOfBirth(): LocalDate
++ getDateOfHire(): LocalDate
++ getNumOrdersAssigned(): int {ConnectionError, ExecutionError}
++ getHalfHoursWorked(): int
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2550</x>
+      <y>1635</y>
+      <w>240</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>EmployeeTableData
+--
+Attributes
+- id: int
+- name: String
+- dateOB: LocalDate
+- dateOH: LocalDate
+- numOrders: int
+- hoursWorked: String
+--
+Constructors
++ EmployeeTableData (name: String, dateOB: LocalDate,
+                     dateOH: LocalDate, numOrders: int. hoursWorked: int)
+--
+Responsiblities
++ getID(): int
++ getName(): String
++ getDateOfBirth(): LocalDate
++ getDateOfHire(): LocalDate
++ getNumOrdersAssigned(): int {ConnectionError, ExecutionError}
++ getHoursWorked(): String
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1660</x>
+      <y>105</y>
+      <w>240</w>
+      <h>285</h>
+    </coordinates>
+    <panel_attributes>Item
+--
+Attributes
+- id: int
+- name: String
+- desc: String
+- price: Price
+- calories: int
+- category: ItemCategory
+- vegi: bool
+- vegan: bool
+- glutenFree: bool
+- allergens: List&lt;String&gt;
+- stock: int
+- costPrice: Price
+--
+Constructors
++ Item(id: int, name: String, desc: String, price: Price, calories: int ,
+           category: ItemCategory, vegi: bool, vegan: bool, glutenFree: bool, 
+           stock: int, costPrice: Price )
+--
+Responsiblities
++ addAllergen(allergen: String)
++ getAllergens(): List&lt;String&gt;
++ getID(): int
++ getName(): String
++ getCategory(): ItemCategory
++ isVegi(): bool
++ isVegan(): bool
++ isGlutenFree(): bool
++ caloriesFormat(): String
++ getPrice(): Price
++ allergenFormat(): String
++ getDescription(): String
++ getStock(): int
++ getCalories(): int
++ getCostPrice(): Price
+bg=Orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1300</x>
+      <y>30</y>
+      <w>240</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Enum&gt;&gt;
+ItemCategory
+--
+Values
+SIDES,
+TACOS,
+QUESADILLAS,
+BURRITOS,
+ENCHILADAS,
+SALADS,
+EXTRAS,
+SOFTDRINKS,
+MOCKTAILS,
+BEERS,
+COCKTAILS,
+TEQUILAS,
+SPIRITS
+--
+Attributes
+_- strToCategory: Map&lt;String, ItemCategory&gt;_
+--
+Responsiblities
+_+ toCategory(category: String): ItemCategory_
+bg=Orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2435</x>
+      <y>430</y>
+      <w>240</w>
+      <h>125</h>
+    </coordinates>
+    <panel_attributes>KitchenOrderTableData
+--
+Attributes
+- id: int
+- time: String
+- status: OrderState
+- items: String
+--
+Constructors
++ KitchenOrderTableData(id: int, time: String, state: OrderState,
+                                          items: String)
+--
+Responsiblities
++ getID(): int
++ getTime(): String
++ getStatus(): OrderState
++ getItems(): String
+bg=Orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2650</x>
+      <y>1040</y>
+      <w>240</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>NotificationTableData
+--
+Attributes
+- id: int
+- tableNumber: int
+- request: String
+--
+Constructors
++ NotificationTableData(id: int, tableNum: int, request: String)
+--
+Responsiblities
++ getID(): int
++ getTableNumber(): int
++ getRequest(): String
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1300</x>
+      <y>225</y>
+      <w>240</w>
+      <h>275</h>
+    </coordinates>
+    <panel_attributes>Order
+--
+Attributes
+- timeOfOrder: LocalTime
+- timeStatusChanged: LocalTime
+- tableNumber: int
+- itemList: List&lt;Item&gt;
+- state: OrderState
+--
+Constructors
++ Order (id: int, items: List&lt;Item&gt;, tableNumber: int, timeOfOrder: LocalTime,
+              timeStatusChanged: LocalTime)
++ Order(tableNumber: int)
++ Order()
+--
+Responsiblities
++ getTime(): LocalTime
++ formatTime(): String
++ getState(): OrderState
++ setState(state: OrderState)
++ setTime(time: LocalTime)
++ addItemToOrder(itemToAdd: Item)
++ getItemsInOrder(): List&lt;Item&gt;
++ getItemsFormatted(): String
++ removeItemFromOrder(itemToRemove: Item)
++ getID(): int
++ getTableNumber(): int
++ getItemCount(): int
++ getOccuranceMap(): Map&lt;Item, Integer&gt;
++ equals(ord: Order): bool
++ setID(id: int)
++ getTimeStatusChanged(): LocalTime
++ setTimeStatusChanged(timeStatusChanged: LocalTime)
++ getPrice(): Price
+- formatID(): String
+- formatTableNum(): String
+bg=Orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3025</x>
+      <y>405</y>
+      <w>240</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Enum&gt;&gt;
+OrderState
+--
+Values
+SERVED
+PREPARING
+CANCELLED
+UNCONFIRMED
+CONFIRMED
+READY
+--
+Attributes
+- strval: String
+--
+Responsiblities
++ toString(): String
+bg=Orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>975</x>
+      <y>405</y>
+      <w>240</w>
+      <h>125</h>
+    </coordinates>
+    <panel_attributes>OrdersToPayData
+--
+Attributes
+- id: int
+- tableNumber: int
+- price: Price
+--
+Constructors
++ OrdersToPayData(id: int, tableNum: int, price: Price)
+--
+Responsiblities
++ getID(): int
++ getTableNumber(): int
++ getPrice(): Price
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>2975</x>
+      <y>1115</y>
+      <w>240</w>
+      <h>125</h>
+    </coordinates>
+    <panel_attributes>OrderTableData
+--
+Attributes
+- id: int
+- tableNumber: int
+- state: OrderState
+- time: String
+--
+Constructors
++ OrderTableData(id: int, tableNum: int, st: OrderState, time: String)
+--
+Responsiblities
++ getID(): int
++ getTableNumber(): int
++ getOrderState(): OrderState
++ getTimePlaced(): String
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1960</x>
+      <y>230</y>
+      <w>240</w>
+      <h>125</h>
+    </coordinates>
+    <panel_attributes>Price
+--
+Attributes
+- pricePence: int
+- pricePounds: int
+- price: int
+--
+Constructors
++ Price(price: int)
+--
+Responsiblities
++ getPriceValue(): int
++ add(priceToBeAdded: int): Price
++ add(priceToBeAdded: Price): Price
++ subtract(priceToBeSubtracted: int): Price
+bg=Orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>3015</x>
+      <y>1490</y>
+      <w>240</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>StockTableData
+--
+Attributes
+- id: int
+- name: String
+- price: Price
+- stock: int
+- avgTime: String
+--
+Constructors
++ NotificationTableData(id: int, name: String, price: Price, stock: int, 
+                                       avgTime: Float)
+--
+Responsiblities
++ getId(): int
++ getName(): String
++ getPrice(): Price
++ getStock(): int
++ getAvgTime(): String
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1895</x>
+      <y>315</y>
+      <w>75</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;contains&gt;&gt;
+fg=Orange</panel_attributes>
+    <additional_attributes>130.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1080</x>
+      <y>0</y>
+      <w>920</w>
+      <h>415</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;contains&gt;&gt;
+fg=Orange</panel_attributes>
+    <additional_attributes>1820.0;460.0;1820.0;20.0;10.0;20.0;10.0;810.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1535</x>
+      <y>160</y>
+      <w>135</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;contains&gt;&gt;
+fg=Orange</panel_attributes>
+    <additional_attributes>10.0;20.0;250.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1535</x>
+      <y>270</y>
+      <w>135</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;contains&gt;&gt;
+fg=Orange</panel_attributes>
+    <additional_attributes>250.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1535</x>
+      <y>410</y>
+      <w>1500</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;contains&gt;&gt;
+fg=Orange</panel_attributes>
+    <additional_attributes>2980.0;30.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3100</x>
+      <y>515</y>
+      <w>50</w>
+      <h>610</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;contains&gt;&gt;
+fg=Orange</panel_attributes>
+    <additional_attributes>20.0;10.0;10.0;1200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2670</x>
+      <y>475</y>
+      <w>365</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;contains&gt;&gt;
+fg=Orange</panel_attributes>
+    <additional_attributes>710.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2355</x>
+      <y>1825</y>
+      <w>135</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;displays&gt;&gt;</panel_attributes>
+    <additional_attributes>250.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2355</x>
+      <y>1660</y>
+      <w>205</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;displays&gt;&gt;</panel_attributes>
+    <additional_attributes>390.0;30.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2355</x>
+      <y>1550</y>
+      <w>670</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;displays&gt;&gt;</panel_attributes>
+    <additional_attributes>1320.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2570</x>
+      <y>1050</y>
+      <w>90</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;displays&gt;&gt;</panel_attributes>
+    <additional_attributes>160.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1520</x>
+      <y>495</y>
+      <w>825</w>
+      <h>560</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;contains&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;1150.0;970.0;1630.0;1100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1535</x>
+      <y>455</y>
+      <w>345</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;contains&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;670.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2105</x>
+      <y>475</y>
+      <w>340</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;displays&gt;&gt;</panel_attributes>
+    <additional_attributes>660.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2570</x>
+      <y>1145</y>
+      <w>415</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;displays&gt;&gt;</panel_attributes>
+    <additional_attributes>810.0;30.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2195</x>
+      <y>255</y>
+      <w>1155</w>
+      <h>1320</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;contains&gt;&gt;
+fg=Orange</panel_attributes>
+    <additional_attributes>10.0;10.0;2230.0;40.0;2220.0;2620.0;2120.0;2620.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1810</x>
+      <y>1920</y>
+      <w>680</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;uses&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;90.0;1340.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>485</x>
+      <y>895</y>
+      <w>355</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;loads data&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>690.0;10.0;10.0;620.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1035</x>
+      <y>525</y>
+      <w>45</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;displays&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;310.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>745</x>
+      <y>505</y>
+      <w>240</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;displays&gt;&gt;</panel_attributes>
+    <additional_attributes>460.0;10.0;10.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1065</x>
+      <y>435</y>
+      <w>245</w>
+      <h>700</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;processes&gt;&gt;</panel_attributes>
+    <additional_attributes>470.0;10.0;180.0;600.0;10.0;1380.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1435</x>
+      <y>495</y>
+      <w>70</w>
+      <h>735</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;contains&gt;&gt;</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;1450.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1765</x>
+      <y>750</y>
+      <w>160</w>
+      <h>1195</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;uses&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;2370.0;170.0;2020.0;300.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>745</x>
+      <y>750</y>
+      <w>95</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;loads data&gt;&gt;
+fg=Blue</panel_attributes>
+    <additional_attributes>170.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+</diagram>

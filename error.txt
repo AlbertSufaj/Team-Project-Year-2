@@ -1,0 +1,4 @@
+Test image = 0000.jpg
+Image path = images/
+Cannot find image for item 1301
+Cannot find image for item 1302
